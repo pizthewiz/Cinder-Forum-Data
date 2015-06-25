@@ -1,0 +1,15 @@
+{
+  "name": "",
+  "version": "",
+  "author": "",
+  "description": "",
+  "private": true,
+  "scripts": {
+  },
+  "dependencies": {
+    "csv": "^0.4.5"
+  },
+  "engine": {
+    "node": ">=0.10"
+  }
+}
