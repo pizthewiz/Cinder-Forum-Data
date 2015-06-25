@@ -21,3 +21,10 @@ The dump makes the following columns available:
 - Message content is often a full-on HTML blob with inline CSS
 - No mapping for username to numerical author ID
 - No account info (display name, avatar, email address, credentials), just a username
+
+## WEB SCRAPING
+Pulling data from the site directly is obviously brittle, but all of the message data is certainly available, albeit cloaked by the DOM - no missing rows or columns.
+
+### NOTES
+- Message post dates are low resolution, the [RSS](https://forum.libcinder.org/feed) has seconds and timezone info
+- Message content is a mega HTML
