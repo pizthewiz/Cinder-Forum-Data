@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-/*jshint node:true, strict:false */
+/*jshint node:true, strict:true */
+'use strict';
 
 var util = require('util');
 var request = require('request');
@@ -80,6 +81,11 @@ function parseThread(topicSlug, callback) {
 
       if ($(this).find('div.bestIcon')) {
         message.isBestAnswer = true;
+      }
+
+      // NB: strangely false positives with $(this).find('span.spam[purpose=inappropriateReason]')
+      if ($(this).find('span.spam').attr('purpose') === 'inappropriateReason') {
+        message.isPossiblySpam = true;
       }
 
       thread.replies.push(message);
