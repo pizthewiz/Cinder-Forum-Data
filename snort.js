@@ -31,25 +31,28 @@ function parseThread(topicSlug, callback) {
       id: $('#SinglePostContainer').attr('forumtopicid')
     };
 
-    // first post
+    var message = {
+      id: $('.sppostContent').attr('id').replace('fullResponseContainer_', '')
+    };
     var profileImageElement = $('.postContainer > .sppostAuthor .normalPhoto > img');
-    thread.creator = {
+    message.author = {
       id: profileImageElement.attr('authorid'),
       userName: profileImageElement.attr('authorname'),
       displayName: profileImageElement.attr('alt')
     };
     // NB: displayName is a duplicate of userName in this instance
-    thread.creator.displayName = null;
+    delete message.author.displayName;
 
     var titleAnchorElement = $('.sppostContent #DocumentTitle a');
-    thread.title = titleAnchorElement.text();
-    thread.url = titleAnchorElement.attr('href');
+    thread.title = message.title = titleAnchorElement.text();
+    thread.url = message.url = titleAnchorElement.attr('href');
 
     var creationDateString = $('.postContainer .sppostContentWrapper em.ndboldem').attr('title');
     // NB: date seems to be GMT-0400
-    thread.creationDate = (new Date(creationDateString + ' GMT-0400')).toISOString();
+    message.creationDate = (new Date(creationDateString + ' GMT-0400')).toISOString();
 
-    thread.body = '<div>' + $('.sppostContent .responseHeight').html() + '</div>';
+    message.body = '<div>' + $('#responseContentContainer_' + message.id).html() + '</div>';
+    thread.message = message;
 
     // replies
     thread.replies = [];
