@@ -49,7 +49,7 @@ function parseThread(topicSlug, callback) {
     // NB: date seems to be GMT-0400
     thread.creationDate = (new Date(creationDateString + ' GMT-0400')).toISOString();
 
-    // TODO: CONTENT
+    thread.body = '<div>' + $('.sppostContent .responseHeight').html() + '</div>';
 
     // replies
     thread.replies = [];
@@ -77,7 +77,7 @@ function parseThread(topicSlug, callback) {
       var creationDateString = $(this).find('em.ndboldem').attr('title');
       message.creationDate = (new Date(creationDateString + ' GMT-0400')).toISOString();
 
-      // TODO: CONTENT
+      message.body = '<div>' + $('#responseContentContainer_' + message.id).html() + '</div>';
 
       if ($(this).find('div.bestIcon')) {
         message.isBestAnswer = true;
