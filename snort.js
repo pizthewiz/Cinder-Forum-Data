@@ -52,6 +52,11 @@ function parseThread(topicSlug, callback) {
     message.creationDate = (new Date(creationDateString + ' GMT-0400')).toISOString();
 
     message.body = '<div>' + $('#responseContentContainer_' + message.id).html() + '</div>';
+
+    if ($('#topicVoteLink').length !== 0) {
+      message.voteCount = parseInt($('#topicVoteLink').attr('responsevotecount') || '0', 10);
+    }
+
     thread.message = message;
 
     // replies
@@ -82,9 +87,10 @@ function parseThread(topicSlug, callback) {
 
       message.body = '<div>' + $('#responseContentContainer_' + message.id).html() + '</div>';
 
-      if ($(this).find('div.bestIcon')) {
+      if ($(this).find('div.bestIcon').length !== 0) {
         message.isBestAnswer = true;
       }
+      // NB: votes are only visible when authenticated
 
       // NB: strangely false positives with $(this).find('span.spam[purpose=inappropriateReason]')
       if ($(this).find('span.spam').attr('purpose') === 'inappropriateReason') {
