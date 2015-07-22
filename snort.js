@@ -39,7 +39,7 @@ function parseThread(topicSlug, callback) {
       id: profileImageElement.attr('authorid'),
       userName: profileImageElement.attr('authorname')
     };
-    author.displayName = $('.postContainer > .sppostAuthor .authorChatPresence').attr('authorname');
+//    author.displayName = $('.postContainer > .sppostAuthor .authorChatPresence').attr('authorname');
     message.author = author;
 
     // duplicate message title and URL into the thread
