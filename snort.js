@@ -35,14 +35,14 @@ function parseThread(topicSlug, callback) {
       id: $('.sppostContent').attr('id').replace('fullResponseContainer_', '')
     };
     var profileImageElement = $('.postContainer > .sppostAuthor .normalPhoto > img');
-    message.author = {
+    var author = {
       id: profileImageElement.attr('authorid'),
-      userName: profileImageElement.attr('authorname'),
-      displayName: profileImageElement.attr('alt')
+      userName: profileImageElement.attr('authorname')
     };
-    // NB: displayName is a duplicate of userName in this instance
-    delete message.author.displayName;
+    author.displayName = $('.postContainer > .sppostAuthor .authorChatPresence').attr('authorname');
+    message.author = author;
 
+    // duplicate message title and URL into the thread
     var titleAnchorElement = $('.sppostContent #DocumentTitle a');
     thread.title = message.title = titleAnchorElement.text();
     thread.url = message.url = titleAnchorElement.attr('href');
