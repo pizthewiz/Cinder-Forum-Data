@@ -92,8 +92,7 @@ function parseThread(topicSlug, callback) {
       }
       // NB: votes are only visible when authenticated
 
-      // NB: strangely false positives with $(this).find('span.spam[purpose=inappropriateReason]')
-      if ($(this).find('span.spam').attr('purpose') === 'inappropriateReason') {
+      if ($(this).find('span.spam[purpose=inappropriateReason]').length !== 0) {
         message.isPossiblySpam = true;
       }
 
