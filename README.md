@@ -21,8 +21,10 @@ $ node tabletop.js --file Forums-SM.csv | less
 - Message threading undefined (message in reply to other message)
 - The `Permalink` column has the same value for all messages in a topic, links to the topic not the message
 - No mapping from topic `Permalink` to numerical topic ID; e.g. [`paleodictyon`](https://forum.libcinder.org/topic/paleodictyon) <-> [`23286000001485179`](https://forum.libcinder.org/#Topic/23286000001485179)
+- Messages are missing a title column
 - No column for numerical message ID
 - Frequently missing message data; e.g. CSV has 13 messages for topic `paleodictyon`, while [the site](https://forum.libcinder.org/topic/paleodictyon) has 14
+- The `Votes` column contains only zeros
 - Message content is often a full-on HTML blob with inline CSS
 - No mapping for username to numerical author ID
 - No account info (display name, avatar, email address, credentials), just a username
