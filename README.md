@@ -10,9 +10,14 @@ The dump makes the following columns available:
 "Forum Name","Category Name","Topic Title","Permalink","Posted Time","Content","Author","Attachments","Votes"
 ```
 
+A simple exploration to parse a CSV dump and transform it as JSON is included in the repo as [`tabletop.js`](tabletop.js) and can be executed via:
+```sh
+$ node tabletop.js --file Forums-SM.csv | less
+```
+
 ### NOTES
 - The `Posted Time` column has the same value for all messages in a topic, the topic creation date not the message
-- Messages within a topic _are_ ordered by post date
+- Messages within a topic are unordered
 - Message threading undefined (message in reply to other message)
 - The `Permalink` column has the same value for all messages in a topic, links to the topic not the message
 - No mapping from topic `Permalink` to numerical topic ID; e.g. [`paleodictyon`](https://forum.libcinder.org/topic/paleodictyon) <-> [`23286000001485179`](https://forum.libcinder.org/#Topic/23286000001485179)
@@ -23,8 +28,13 @@ The dump makes the following columns available:
 - No account info (display name, avatar, email address, credentials), just a username
 
 ## WEB SCRAPING
-Pulling data from the site directly is obviously brittle, but most of the message data is certainly available, albeit cloaked by the DOM - no missing rows or columns.
+Pulling data from the site directly is obviously brittle, but most of the message data is available, albeit cloaked by the DOM - no missing rows or columns, though fidelity can be an issue.
+
+A simple exploration to scrape a forum thread and transform it to JSON is included in the repo as [`snort.js`](snort.js) and can be executed via:
+```sh
+$ node snort.js --thread paleodictyon | less
+```
 
 ### NOTES
+- All of the issues above for the CSV dump are addressed by scraping save for the message body being HTML and CSS
 - Message post dates are low resolution, the [RSS](https://forum.libcinder.org/feed) has seconds and timezone info
-- Message content is always HTML and has to be ripped out of the DOM
