@@ -5,6 +5,7 @@
 var util = require('util');
 var request = require('request');
 var cheerio = require('cheerio');
+var argv = require('minimist')(process.argv.slice(2));
 
 // NB: numerical topic ID loads content via XHR, slug topic is self-contained
 //  https://forum.libcinder.org/#Topic/23286000001485179
@@ -135,11 +136,29 @@ function parseUser(userName, callback) {
   });
 }
 
-// ----------------------------------------------------------------------------
-parseThread('paleodictyon', function (err, thread) {
-  console.log(util.inspect(thread, {depth: null}));
-});
 
-// parseUser('USERNAME', function (err, user) {
-//   console.log(util.inspect(user, {depth: null}));
-// });
+
+// ----------------------------------------------------------------------------
+var thread = argv.thread || argv.t;
+if (thread !== undefined) {
+  parseThread(thread, function (err, thread) {
+    if (err) {
+      console.error('ERROR: failed to parse thread - %s', err);
+      return;
+    }
+
+    console.log(util.inspect(thread, {depth: null}));
+  });
+}
+
+var user = argv.user || argv.u;
+if (user !== undefined) {
+  parseUser(user, function (err, user) {
+    if (err) {
+      console.error('ERROR: failed to parse user - %s', err);
+      return;
+    }
+
+    console.log(util.inspect(user, {depth: null}));
+  });
+}

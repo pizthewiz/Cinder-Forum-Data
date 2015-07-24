@@ -4,10 +4,11 @@
 var util = require('util');
 var fs = require('fs');
 var csv = require('csv');
+var argv = require('minimist')(process.argv.slice(2));
 
 // CSV COLUMNS: "Forum Name","Category Name","Topic Title","Permalink","Posted Time","Content","Author","Attachments","Votes"
 
-var filename = process.argv[2] ? process.argv[2] : './Forums-SM.csv';
+var filename = argv.file || argv.f;
 
 var output = [];
 var parser = csv.parse({delimiter: ','});
